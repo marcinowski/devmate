@@ -44,6 +44,7 @@ EXTERNAL_APPS = [
 
 LOCAL_APPS = [
     'blog',
+    'utils'
 ]
 
 INSTALLED_APPS = BUILTIN_APPS + EXTERNAL_APPS + LOCAL_APPS

@@ -12,9 +12,24 @@
     <link href="{% static 'site/css/site.css' %}" rel="stylesheet">
     {% block extra_css %}{% endblock extra_css %}
 </head>
-<body ng-app="devMateApp" ng-controller="{% block controller %}{% endblock controller %}">
+<body ng-app="devMateApp" ng-controller="{% block controller %}SkeletonCtrl{% endblock controller %}">
     <header>
         {% block header %}
+        <div layout="column" layout-fill="layout-fill">
+            <md-toolbar md-scroll-shrink>
+                <div class="md-toolbar-tools">
+                    <md-button ng-href="{% url 'main' %}">
+                        <h3>DevMate</h3>
+                    </md-button>
+                    {% if user.is_authenticated %}
+                    <span flex></span>
+                    <md-button ng-href="{% url 'auth:logout' %}">
+                        Log Out
+                    </md-button>
+                    {% endif %}
+                </div>
+            </md-toolbar>
+        </div>
         {% endblock header %}
     </header>
     <main>
@@ -24,12 +39,12 @@
     <footer>
 
     </footer>
-    <script type="text/javascript" src="{% static 'libs/angular/angular' | minified %}"></script>
-    <script type="text/javascript" src="{% static 'libs/angular-resource/angular-resource' | minified %}"></script>
-    <script type="text/javascript" src="{% static 'libs/angular-animate/angular-animate' | minified %}"></script>
-    <script type="text/javascript" src="{% static 'libs/angular-aria/angular-aria' | minified %}"></script>
-    <script type="text/javascript" src="{% static 'libs/angular-messages/angular-messages' | minified %}"></script>
-    <script type="text/javascript" src="{% static 'libs/angular-material/angular-material' | minified %}"></script>
+    <script type="text/javascript" src="{% static 'libs/angular/angular'|minified %}"></script>
+    <script type="text/javascript" src="{% static 'libs/angular-resource/angular-resource'|minified %}"></script>
+    <script type="text/javascript" src="{% static 'libs/angular-animate/angular-animate'|minified %}"></script>
+    <script type="text/javascript" src="{% static 'libs/angular-aria/angular-aria'|minified %}"></script>
+    <script type="text/javascript" src="{% static 'libs/angular-messages/angular-messages'|minified %}"></script>
+    <script type="text/javascript" src="{% static 'libs/angular-material/angular-material'|minified %}"></script>
     <script type="text/javascript" src="{% static 'site/js/skeleton.js' %}"></script>
     {% block extra_js %}{% endblock extra_js %}
 </body>

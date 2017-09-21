@@ -118,4 +118,5 @@ ENV/
 
 # My settings
 src/static/libs/*
-
+*.sqlite3
+*.db

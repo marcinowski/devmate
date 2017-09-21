@@ -10,8 +10,8 @@
             $httpProvider.defaults.xsrfCookieName = 'csrftoken';
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
         })
-        .controller('AppCtrl', AppCtrl);
-            function AppCtrl($scope, $mdDialog) {
+        .controller('SkeletonCtrl', SkeletonCtrl);
+            function SkeletonCtrl($scope, $mdDialog) {
                 $scope.showErrorDialog = function(){
                     $mdDialog.show(
                         $mdDialog.alert()

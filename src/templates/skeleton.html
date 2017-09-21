@@ -8,30 +8,51 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
     <title>DevMate {% block title %}{% endblock title %}</title>
-    <link href="{% static 'libs/angular-material/angular-material' | minified:'css' %}" rel="stylesheet">
+    <link href="{% static 'libs/angular-material/angular-material'|minified:'css' %}" rel="stylesheet">
     <link href="{% static 'site/css/site.css' %}" rel="stylesheet">
+    <style>
+        .background {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image:
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                url('{% static "/img/background.jpg" %}');
+        }
+    </style>
     {% block extra_css %}{% endblock extra_css %}
 </head>
 <body ng-app="devMateApp" ng-controller="{% block controller %}SkeletonCtrl{% endblock controller %}">
-    <header>
-        {% block header %}
-        <div layout="column" layout-fill="layout-fill">
-            <md-toolbar md-scroll-shrink>
-                <div class="md-toolbar-tools">
-                    <md-button ng-href="{% url 'main' %}">
-                        <h3>DevMate</h3>
-                    </md-button>
-                    {% if user.is_authenticated %}
-                    <span flex></span>
-                    <md-button ng-href="{% url 'auth:logout' %}">
-                        Log Out
-                    </md-button>
-                    {% endif %}
-                </div>
-            </md-toolbar>
-        </div>
-        {% endblock header %}
-    </header>
+    <div flex layout-fill class="background parallax">
+        <header>
+            {% block header %}
+            <div layout="column" layout-fill="layout-fill">
+                <md-toolbar md-scroll-shrink>
+                    <div class="md-toolbar-tools">
+                        <md-button ng-href="{% url 'main' %}">
+                            <h3>DevMate</h3>
+                        </md-button>
+                        <span flex></span>
+                        <md-button ng-href="{% url 'blog:main' %}">
+                            <h3>{% trans 'Blog' %}</h3>
+                        </md-button>
+                        <md-button ng-href="{% url 'about' %}">
+                            <h3>{% trans 'O mnie' %}</h3>
+                        </md-button>
+                        <md-button ng-href="{% url 'projects' %}">
+                            <h3>{% trans 'Projekty' %}</h3>
+                        </md-button>
+                        {% if user.is_authenticated %}
+                        <md-button ng-href="{% url 'auth:logout' %}">
+                            Log Out
+                        </md-button>
+                        {% endif %}
+                    </div>
+                </md-toolbar>
+            </div>
+            {% endblock header %}
+        </header>
+    </div>
     <main>
         {% block content %}
         {% endblock content %}

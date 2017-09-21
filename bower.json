@@ -9,6 +9,7 @@
   "homepage": "",
   "private": true,
   "dependencies": {
-    "angular-material": "^1.1.5"
+    "angular-material": "^1.1.5",
+    "angular-resource": "^1.6.6"
   }
 }

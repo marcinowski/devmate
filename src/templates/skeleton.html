@@ -9,6 +9,8 @@
     <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
     <title>DevMate {% block title %}{% endblock title %}</title>
     <link href="{% static 'libs/angular-material/angular-material'|minified:'css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{% static 'site/css/site.css' %}" rel="stylesheet">
     <style>
         .background {
@@ -27,7 +29,8 @@
         <header>
             {% block header %}
             <div layout="column" layout-fill="layout-fill">
-                <md-toolbar md-scroll-shrink>
+                <md-content>
+                <md-toolbar md-scroll-shrink style="position: fixed;">
                     <div class="md-toolbar-tools">
                         <md-button ng-href="{% url 'main' %}">
                             <h3>DevMate</h3>
@@ -47,21 +50,55 @@
                             Log Out
                         </md-button>
                         {% endif %}
+                        <md-menu md-offset="0 50">
+                            {% get_current_language as curr_lang %}
+                            <md-button aria-label="Open Language Menu" ng-click="$mdMenu.open($event)">
+                                {{ curr_lang|upper }}
+                            </md-button>
+                            <md-menu-content width="2">
+                                {% get_available_languages as available_languages %}
+                                {% get_language_info_list for available_languages as langs %}
+                                {% for lang in langs %}
+                                <md-menu-item>
+                                    <md-button ng-href="/">  <!-- todo: handle lang change -->
+                                        {{ lang.code|upper }}
+                                    </md-button>
+                                </md-menu-item>
+                                {% endfor %}
+                            </md-menu-content>
+                        </md-menu>
                     </div>
                 </md-toolbar>
+                </md-content>
             </div>
             {% endblock header %}
         </header>
-        <div flex layout="row" layout-align="center center" layout-fill>
-            <h2 style="color: white;">{% trans 'Witaj na mojej stronie' %}</h2>
-        </div>
+        {% block landing %}
+        {% endblock %}
     </div>
-    <main>
+    <main flex>
         {% block content %}
         {% endblock content %}
     </main>
-    <footer>
-
+    <footer flex>
+        <md-toolbar flex layout="column" layout-align="center center">
+            <div flex layout="row" layout="space-between center">
+                <md-button class="md-fab md-mini md-warn" aria-label="Facebook">
+                    <md-icon md-font-icon="facebook-box"></md-icon>
+                </md-button>
+                <md-button class="md-fab md-mini md-warn" aria-label="LinkedIn">
+                    <md-icon md-font-icon="linkedin-box"></md-icon>
+                </md-button>
+                <md-button class="md-fab md-mini md-warn" aria-label="GitHub">
+                    <md-icon md-font-icon="github-box"></md-icon>
+                </md-button>
+            </div>
+            <div layout="center center">
+                <div class="md-subhead">
+                    © 2017 Copyright: <a href="/"> Marcin Muszynski </a>
+                </div>
+            </div>
+        </md-toolbar>
     </footer>
     <script type="text/javascript" src="{% static 'libs/angular/angular'|minified %}"></script>
     <script type="text/javascript" src="{% static 'libs/angular-resource/angular-resource'|minified %}"></script>

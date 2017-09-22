@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +27,7 @@ SECRET_KEY = 'if32j+b^i6q-&a**g8!-z30_c6hiq=78adhe_#o^oghzpq3xra'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-
+INTERNAL_IPS = ALLOWED_HOSTS[:]
 
 # Application definition
 BUILTIN_APPS = [
@@ -79,7 +80,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'devmate.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -109,11 +109,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = [
+    ('pl', 'Polski'),
+    ('en', 'English'),
+]
 
 TIME_ZONE = 'UTC'
 

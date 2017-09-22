@@ -1,131 +1,97 @@
 {% extends 'skeleton.html' %}
-{% load i18n %}
-<header>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark elegant-color-dark scrolling-navbar"
-         style="border-radius: 0px;">
-        <a class="navbar-brand" href="#"><strong>Devmate awesome logo</strong></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'blog' %}">{% trans 'Blog' %}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'projects' %}">{% trans 'Projekty' %}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">{% trans 'O mnie' %}</a>
-                </li>
-            </ul>
-            <div class="btn-group">
-                <button class="btn btn-social-all waves-effect waves-light dropdown-toggle"
-                        style="background-color: transparent; color: white;" type="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">PL
-                </button>
-                <div class="dropdown-menu elegant-color-dark" style="border-radius: 0px;">
-                    <a class="dropdown-item white-text" href="#"><p class="white-text">PL</p></a>
-                    <a class="dropdown-item" href="#"><p class="white-text">EN</p></a>
-                </div>
-            </div>
-        </div>
-    </nav>
+{% load i18n staticfiles %}
 
-    <!--Mask-->
-    <div class="view hm-black-strong parallax">
-        <div class="full-bg-img flex-center">
-            <div class="container">
-                <div class="white-text text-center wow fadeInUp">
-                    <h1>Devmate</h1>
-                    <h4>Catchy-catchy catch phrase</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+{% block landing %}
+<div flex layout="row" layout-align="center center" layout-fill>
+    <h2 class="md-display-3" style="color: white;">{% trans 'Witaj na mojej stronie' %}</h2>
+</div>
+{% endblock %}
+
 {% block content %}
-<main class="mt-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9 col-sm-12 pr-5">
-                <h1 class="text-center wow fadeInLeft">{% trans 'Ostatnie posty na blogu' %}</h1>
-                <hr>
-                <div class="card mt-5 wow fadeInLeft">
-                    <div class="card-header elegant-color-dark lighten-2 white-text">
-                        12/03/2017
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Ostatni artykuł</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent finibus
-                            volutpat purus sit amet sagittis.</p>
-                        <a href="#" class="pull-right">Czytaj dalej</a>
-                    </div>
+    <md-content layout-margin>
+        <div layout="column" layout-gt-sm="row" flex layout-align="space-between center">
+            <div layout="column" flex-gt-sm="70" flex layout-padding>
+                <h1 class="md-display-2">{% trans 'Ostatnie posty na blogu' %}</h1>
+                <md-divider></md-divider>
+                <md-card md-theme="default" md-theme-watch>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Ostatni artykuł</span>
+                            <span class="md-subhead">12/03/2017</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media"></div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-content>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent finibus
+                            volutpat purus sit amet sagittis.
+                        </p>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button>Czytaj dalej</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card md-theme="default" md-theme-watch>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Przedstatni artykuł</span>
+                            <span class="md-subhead">11/03/2017</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media"></div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-content>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent finibus
+                            volutpat purus sit amet sagittis.
+                        </p>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button>Czytaj dalej</md-button>
+                    </md-card-actions>
+                </md-card>
+                <div flex layout="row" layout-align="end center">
+                    <a href="#" class="md-subhead">{% trans 'Więcej wpisów' %} >></a>
                 </div>
-                <div class="card mt-5 wow fadeInLeft">
-                    <div class="card-header elegant-color-dark lighten-2 white-text">
-                        12/02/2017
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Przedostatni artykuł</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent finibus
-                            volutpat purus sit amet sagittis.</p>
-                        <a href="#" class="pull-right">Czytaj dalej</a>
-                    </div>
-                </div>
-                <div class="mt-5">
-                    <a href="#" class="pull-right wow fadeInLeft">{% trans 'Więcej wpisów' %} >></a>
-                </div>
+                <md-divider></md-divider>
             </div>
-            <div class="col-md-3 col-sm-12">
-                <!-- Author, newsfeed -->
-                <div class="row wow fadeInRight">
-                    <img src="media/avatar.png" class="mx-auto d-block" alt="First sample avatar image">
-                </div>
-                <div class="w-100"></div>
-                <div class="row wow fadeInRight">
-                    <div class="text-center">
-                        <h4><strong>Marcin Muszynski</strong></h4>
-                        <h6 class="font-bold grey-text mb-4">Software developer</h6>
-                        <p class="grey-text">{% blocktrans %}
+            <!-- Author, newsfeed -->
+            <div layout="column" flex-gt-sm="30" flex-order="-1" flex-order-gt-sm="2" layout-padding>
+                <md-card>
+                    <img ng-src="{% static 'img/avatar.png' %}" class="md-card-image" alt="Washed Out">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">{% trans 'O mnie' %}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <p>
+                            {% blocktrans %}
                             Lubię placki, jestem śmiesznym i wyluzowanym programistą, bo wrzucam
                             śmieszne rzeczy które lubię robić i generalnie śmiesznie XD.
                             {% endblocktrans %}
                         </p>
-                    </div>
-                </div>
-                <div class="row wow fadeInRight">
-                    <form class="md-form mb-0">
-                        <i class="fa fa-search prefix"></i>
-                        <input id="search" class="form-control mr-sm-2" type="text">
-                        <label for="search">{% trans 'Szukaj' %}</label>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <!-- todo: social media icons -->
+                    </md-card-actions>
+                </md-card>
+                <div>
+                    <form layout="row" layout-align="center center">
+                        <md-input-container>
+                            <label>{% trans 'Search' %}</label>
+                            <input name="search">
+                        </md-input-container>
+                        <md-button type="submit" class="md-raised md-primary md-icon-button">
+                            <md-icon md-font-icon="search"></md-icon>
+                        </md-button>
                     </form>
                 </div>
-                <div class="row">
+                <div layout="row">
                     <h3>Tag</h3>Tag<h6>Tag</h6>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </md-content>
 {% endblock content %}
-<footer class="page-footer center-on-small-only elegant-color-dark mt-5">
-    <div class="text-center mb-3">
-        <a target="_blank" href="https://www.facebook.com/"
-           class="btn btn-elegant btn-social-all waves-effect waves-light wow fadeInLeft"><i
-                class="fa fa-facebook left"></i></a>
-        <a target="_blank" href="https://www.linkedin.com/"
-           class="btn btn-elegant btn-social-all waves-effect waves-light wow fadeInUp"><i
-                class="fa fa-linkedin left"></i></a>
-        <a target="_blank" href="https://github.com/marcinowski/"
-           class="btn btn-elegant btn-social-all  waves-effect waves-light wow fadeInRight"><i
-                class="fa fa-github left"></i></a>
-    </div>
-    <div class="footer-copyright">
-        <div class="container-fluid wow fadeInUp">
-            ©
-            2017 Copyright: <a href="/"> devmate.pl </a>
-        </div>
-    </div>
-</footer>

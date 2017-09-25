@@ -40,7 +40,7 @@ BUILTIN_APPS = [
 ]
 
 EXTERNAL_APPS = [
-
+    'django_extensions',
 ]
 
 LOCAL_APPS = [

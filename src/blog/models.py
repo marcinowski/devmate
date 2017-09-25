@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -5,13 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
-
-CONTENT_STATUS_DRAFT = 1
-CONTENT_STATUS_PUBLISHED = 2
-CONTENT_STATUS_CHOICES = (
-    (CONTENT_STATUS_DRAFT, _("Draft")),
-    (CONTENT_STATUS_PUBLISHED, _("Published")),
-)
+from blog.managers import ArticleManager
 
 UserModel = get_user_model()
 
@@ -24,6 +20,12 @@ class Tag(models.Model):
 
 
 class Article(models.Model):
+    CONTENT_STATUS_DRAFT = 1
+    CONTENT_STATUS_PUBLISHED = 2
+    CONTENT_STATUS_CHOICES = (
+        (CONTENT_STATUS_DRAFT, _("Draft")),
+        (CONTENT_STATUS_PUBLISHED, _("Published")),
+    )
     author = models.ForeignKey(UserModel, related_name='articles')
     related_posts = models.ManyToManyField("self", verbose_name="Related posts", blank=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -50,10 +52,17 @@ class Article(models.Model):
         db_index=True
     )
 
+    archive = ArticleManager()
+
     def save(self, *args, **kwargs):
-        """ Makes sure the slug is generated """
+        """ Makes sure that:
+          - the slug is generated
+          - the publish date is set
+        """
         if not self.slug and self.title:
             self.slug = slugify(self.title)
+        if not self.publish_date and self.status == self.CONTENT_STATUS_PUBLISHED:
+            self.publish_date = datetime.now()
         super().save(*args, **kwargs)
 
 

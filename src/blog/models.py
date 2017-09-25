@@ -14,6 +14,13 @@ CONTENT_STATUS_CHOICES = (
 UserModel = get_user_model()
 
 
+class Tag(models.Model):
+    tag = models.SlugField()
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+
 class Article(models.Model):
     author = models.ForeignKey(UserModel, related_name='articles')
     related_posts = models.ManyToManyField("self", verbose_name="Related posts", blank=True)
@@ -22,8 +29,8 @@ class Article(models.Model):
     content = models.TextField(_("Content"), blank=True)  # todo: Custom content field + widget
     description = models.TextField(_("Description"), blank=True)
     title = models.CharField(_("Title"), max_length=500)  # fixme: ugettext
-    slug = models.SlugField("Slug", max_length=500, blank=True)  # fixme: ugettext
-    tags = GenericRelation('Tag', related_query_name='articles')
+    slug = models.SlugField(_("Slug"), max_length=500, blank=True)  # fixme: ugettext
+    tags = GenericRelation(Tag, related_query_name='articles')
     status = models.IntegerField(
         _("Status"),
         choices=CONTENT_STATUS_CHOICES,
@@ -46,8 +53,11 @@ class Thumbnail(models.Model):
     pass
 
 
-class Tag(models.Model):
-    tag = models.SlugField()
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
+"""
+https://sachinchoolur.github.io/angular-trix/
+textangular.com
+https://www.tinymce.com/  # not angular
+https://github.com/summernote/angular-summernote
+https://github.com/angular-ui/ui-tinymce
+http://wanming.github.io/angular-editor/
+"""

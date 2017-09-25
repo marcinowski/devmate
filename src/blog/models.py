@@ -2,7 +2,9 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
+
 
 CONTENT_STATUS_DRAFT = 1
 CONTENT_STATUS_PUBLISHED = 2
@@ -47,6 +49,12 @@ class Article(models.Model):
         null=True,
         db_index=True
     )
+
+    def save(self, *args, **kwargs):
+        """ Makes sure the slug is generated """
+        if not self.slug and self.title:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
 
 class Thumbnail(models.Model):

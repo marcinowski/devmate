@@ -21,7 +21,7 @@ class Command(BaseCommand):
         self.stdout.write('Filling the blog models.')
         try:
             user = UserModel.objects.get(username='test')
-        except UserModel.ObjectDoesNotExist:
+        except UserModel.DoesNotExist:
             self.stdout.write('User `test` not found. Run `utils_init` first.')
         else:
             for mock in mock_articles:

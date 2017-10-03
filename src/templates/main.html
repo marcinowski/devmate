@@ -2,57 +2,29 @@
 {% load i18n staticfiles %}
 
 {% block landing %}
-<div flex layout="row" layout-align="center center" layout-fill>
-    <h2 class="md-display-3" style="color: white;">{% trans 'Witaj na mojej stronie' %}</h2>
-</div>
+    <image-splash flex image="{% static 'img/background.jpg' %}">
+        <div flex layout="row" layout-align="center center">
+            <h2 class="md-display-3" style="color: white;">{% trans 'Witaj na mojej stronie' %}</h2>
+        </div>
+    </image-splash>
 {% endblock %}
+
+{% block extra_css %}
+{% endblock extra_css %}
 
 {% block content %}
     <md-content layout-margin>
-        <div layout="column" layout-gt-sm="row" flex layout-align="space-between center">
+        <div layout="column" layout-gt-sm="row" flex layout-align="space-around start">
             <div layout="column" flex-gt-sm="70" flex layout-padding>
                 <h1 class="md-display-2">{% trans 'Ostatnie posty na blogu' %}</h1>
                 <md-divider></md-divider>
-                <md-card md-theme="default" md-theme-watch>
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">Ostatni artykuł</span>
-                            <span class="md-subhead">12/03/2017</span>
-                        </md-card-title-text>
-                        <md-card-title-media>
-                            <div class="md-media-sm card-media"></div>
-                        </md-card-title-media>
-                    </md-card-title>
-                    <md-card-content>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent finibus
-                            volutpat purus sit amet sagittis.
-                        </p>
-                    </md-card-content>
-                    <md-card-actions layout="row" layout-align="end center">
-                        <md-button>Czytaj dalej</md-button>
-                    </md-card-actions>
-                </md-card>
-                <md-card md-theme="default" md-theme-watch>
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">Przedstatni artykuł</span>
-                            <span class="md-subhead">11/03/2017</span>
-                        </md-card-title-text>
-                        <md-card-title-media>
-                            <div class="md-media-sm card-media"></div>
-                        </md-card-title-media>
-                    </md-card-title>
-                    <md-card-content>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent finibus
-                            volutpat purus sit amet sagittis.
-                        </p>
-                    </md-card-content>
-                    <md-card-actions layout="row" layout-align="end center">
-                        <md-button>Czytaj dalej</md-button>
-                    </md-card-actions>
-                </md-card>
+                {% for article in recent_articles %}
+                    {% include 'blog/article_tile.html' %}
+                {% empty %}
+                <h2>{% trans 'No articles has been added yet :(' %}
+                {% endfor %}
                 <div flex layout="row" layout-align="end center">
-                    <a href="#" class="md-subhead">{% trans 'Więcej wpisów' %} >></a>
+                    <a href="{% url 'blog:main' %}" class="md-subhead">{% trans 'Więcej wpisów' %} >></a>
                 </div>
                 <md-divider></md-divider>
             </div>

@@ -41,6 +41,7 @@ BUILTIN_APPS = [
 
 EXTERNAL_APPS = [
     'django_extensions',
+    'debug_toolbar'
 ]
 
 LOCAL_APPS = [
@@ -51,6 +52,7 @@ LOCAL_APPS = [
 INSTALLED_APPS = BUILTIN_APPS + EXTERNAL_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -125,14 +127,15 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'static/media'
 # MY SETTINGS
 
 STATICFILES_DIRS = (

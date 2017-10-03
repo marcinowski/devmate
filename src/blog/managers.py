@@ -8,5 +8,8 @@ from django.db.models import Manager
 
 
 class ArticleManager(Manager):
-    def get_last_published(self, count=2):
-        return self.filter(status=self.CONTENT_STATUS_PUBLISHED).order_by('publish_date')[count]
+    def get_published_recently(self, count=2):
+        return self.filter(status=self.model.CONTENT_STATUS_PUBLISHED).order_by('publish_date')[:count]
+
+    def get_published(self):
+        return self.filter(status=self.model.CONTENT_STATUS_PUBLISHED)

@@ -10,8 +10,8 @@
             $httpProvider.defaults.xsrfCookieName = 'csrftoken';
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
         })
-        .controller('SkeletonCtrl', SkeletonCtrl);
-            function SkeletonCtrl($scope, $mdDialog) {
+        .controller('SkeletonCtrl', ['$scope', '$mdDialog',
+            function ($scope, $mdDialog) {
                 $scope.showErrorDialog = function(){
                     $mdDialog.show(
                         $mdDialog.alert()
@@ -31,5 +31,25 @@
                     }, error_msg);
                     return error_msg.join('\n');
                 };
+        }])
+        .directive('imageSplash', function() {
+            return {
+                restrict: 'E',
+                transclude: true,
+                link: function (scope, element, attrs) {
+                    element.css({
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover',
+                        backgroundImage: [
+                            'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8))',
+                            'url(' + attrs.image + ')'
+                        ],
+                        backgroundAttachment: 'fixed',
+                        height: '50vh',
+                    });
+                },
+                template: '<div flex layout-fill layout="column" layout-align="center center" ng-transclude></div>',
             }
+        });
 })();

@@ -3,10 +3,14 @@ from django.views.generic import DetailView, ListView
 from blog.models import Article
 
 
-class ArticleView(DetailView):
+class ArticleDetail(DetailView):
     model = Article
-    template_name = 'article.html'
+    template_name = 'blog/article.html'
+    lookup_field = 'slug'
+    context_object_name = 'article'
 
 
-class ArticlesView(ListView):
-    queryset = Article.archive.get_last_published()
+class ArticleList(ListView):
+    queryset = Article.objects.get_published()
+    template_name = 'blog/main.html'
+    context_object_name = 'articles'

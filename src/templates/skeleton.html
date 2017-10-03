@@ -12,24 +12,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{% static 'site/css/site.css' %}" rel="stylesheet">
-    <style>
-        .background {
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-image:
-                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
-                url('{% static "/img/background.jpg" %}');
-        }
-    </style>
     {% block extra_css %}{% endblock extra_css %}
 </head>
-<body ng-app="devMateApp" ng-controller="{% block controller %}SkeletonCtrl{% endblock controller %}">
-    <div flex layout-fill class="background parallax">
-        <header>
-            {% block header %}
-            <div layout="column" layout-fill="layout-fill">
-                <md-content>
+<body ng-app="devMateApp" ng-controller="{% block controller %}SkeletonCtrl{% endblock controller %}"> 
+    <header flex="100">
+        {% block header %}
+        <div layout="column" layout-fill>
+            <md-content>
                 <md-toolbar md-scroll-shrink style="position: fixed;">
                     <div class="md-toolbar-tools">
                         <md-button ng-href="{% url 'main' %}">
@@ -69,14 +58,16 @@
                         </md-menu>
                     </div>
                 </md-toolbar>
-                </md-content>
+            </md-content>   
+            {% block landing %}
+            <div style="margin-top: 80px">
+                <!-- This is to ensure that the content is offset when there's no landing -->
             </div>
-            {% endblock header %}
-        </header>
-        {% block landing %}
-        {% endblock %}
-    </div>
-    <main flex>
+            {% endblock %}
+        </div>  
+        {% endblock header %}
+    </header>
+    <main flex layout="row" layout-align="space-around start">
         {% block content %}
         {% endblock content %}
     </main>

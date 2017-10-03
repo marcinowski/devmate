@@ -4,10 +4,13 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
-from django.utils.text import slugify
+from django.core.urlresolvers import reverse
+from django.utils.text import slugify, Truncator
 from django.utils.translation import ugettext_lazy as _
 
 from blog.managers import ArticleManager
+from blog.services import get_random_thumbnail, THUMBNAILS_DIR
+
 
 UserModel = get_user_model()
 
@@ -35,6 +38,7 @@ class Article(models.Model):
     title = models.CharField(_("Title"), max_length=500)  # fixme: ugettext
     slug = models.SlugField(_("Slug"), max_length=500, blank=True)  # fixme: ugettext
     tags = GenericRelation(Tag, related_query_name='articles')
+    thumbnail = models.ImageField(upload_to=THUMBNAILS_DIR, default=get_random_thumbnail)
     status = models.IntegerField(
         _("Status"),
         choices=CONTENT_STATUS_CHOICES,
@@ -52,7 +56,7 @@ class Article(models.Model):
         db_index=True
     )
 
-    archive = ArticleManager()
+    objects = ArticleManager()
 
     def save(self, *args, **kwargs):
         """ Makes sure that:
@@ -63,11 +67,16 @@ class Article(models.Model):
             self.slug = slugify(self.title)
         if not self.publish_date and self.status == self.CONTENT_STATUS_PUBLISHED:
             self.publish_date = datetime.now()
+        if not self.description:
+            self.description = Truncator(self.content).words(100, html=True)
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('blog:article', kwargs={'slug': self.slug})
 
-class Thumbnail(models.Model):
-    pass
+
+class Image(models.Model):
+    path = models.ImageField(upload_to='images/article_images/')
 
 
 """

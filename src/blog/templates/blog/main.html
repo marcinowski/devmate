@@ -1,0 +1,22 @@
+{% extends 'skeleton.html' %}
+{% load i18n staticfiles %}
+
+{% block landing %}
+	<image-splash image="{% static 'img/background.jpg' %}">
+	</image-splash>
+{% endblock landing %}
+
+{% block content %}
+	<div flex="50" layout="column" layout-align="space-around center">
+		<h2> {% trans 'Latest articles' %}</h2>
+		{% for article in articles %}
+			{% include 'blog/article_tile.html' %}
+		{% empty %}
+			<h1>{% trans 'No articles has been added yet :(' %}</h1>
+		{% endfor %}
+	</div>
+	<div flex="30">
+		<h3>Filtry etc.</h3>
+		<!-- Filtry etc -->
+	</div>
+{% endblock content %}

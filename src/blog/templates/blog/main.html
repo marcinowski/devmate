@@ -7,15 +7,24 @@
 {% endblock landing %}
 
 {% block content %}
-	<div flex="50" layout="column" layout-align="space-around center">
+	<div flex="60" layout="column" layout-align="space-around center">
 		<h2> {% trans 'Latest articles' %}</h2>
-		{% for article in articles %}
-			{% include 'blog/article_tile.html' %}
-		{% empty %}
-			<h1>{% trans 'No articles has been added yet :(' %}</h1>
-		{% endfor %}
+		<md-content layout-padding flex layout-fill>
+			<md-grid-list md-cols="4" md-row-height="100px" style="height: 100%;">
+				{% for article in articles %}
+					<md-grid-tile md-colspan="4" ng-click="null" md-rowspan="2" style="background: url('{{ article.thumbnail.url }}');">
+						<md-grid-tile-footer layout-padding>
+							{{ article.publish_date|date:"j E Y" }} <br/>
+							<strong>{{ article.title }}</strong>
+						</md-grid-tile-footer>
+					</md-grid-tile>
+				{% empty %}
+					<h1>{% trans 'No articles has been added yet :(' %}</h1>
+				{% endfor %}
+			</md-grid-list>
+		</md-content>
 	</div>
-	<div flex="30">
+	<div flex="20">
 		<h3>Filtry etc.</h3>
 		<!-- Filtry etc -->
 	</div>

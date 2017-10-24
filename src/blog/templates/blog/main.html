@@ -7,16 +7,18 @@
 {% endblock landing %}
 
 {% block content %}
-	<div flex="60" layout="column" layout-align="space-around center">
-		<h2> {% trans 'Latest articles' %}</h2>
+	<div flex="60" layout="column" layout-align="space-around center" layout-marigin>
 		<md-content layout-padding flex layout-fill>
 			<md-grid-list md-cols="4" md-row-height="100px" style="height: 100%;">
 				{% for article in articles %}
-					<md-grid-tile md-colspan="4" ng-click="null" md-rowspan="2" style="background: url('{{ article.thumbnail.url }}');">
-						<md-grid-tile-footer layout-padding>
-							{{ article.publish_date|date:"j E Y" }} <br/>
-							<strong>{{ article.title }}</strong>
-						</md-grid-tile-footer>
+					<md-grid-tile md-colspan="4" md-rowspan="2"
+					 	style="background: url('{{ article.thumbnail.url }}');">
+					 	<a href="{{ article.get_absolute_url }}" md-ink-ripple="#FF0000">
+							<md-grid-tile-footer layout-padding>
+								{{ article.publish_date|date:"j E Y" }} <br/>
+								<strong>{{ article.title }}</strong>
+							</md-grid-tile-footer>
+						</a>
 					</md-grid-tile>
 				{% empty %}
 					<h1>{% trans 'No articles has been added yet :(' %}</h1>
@@ -26,6 +28,28 @@
 	</div>
 	<div flex="20">
 		<h3>Filtry etc.</h3>
-		<!-- Filtry etc -->
+		<form method="get">
+		    <md-chips ng-model="filters.roFruitNames" name="fruitName" readonly="ctrl.readonly"
+            	md-removable="ctrl.removable" md-max-chips="5" placeholder="{% trans 'Enter a tag...' %}">
+      		</md-chips>
+      		<md-chips ng-model="filters.tags" md-autocomplete-snap
+				md-require-match="true">
+				<md-autocomplete
+					md-search-text="{% trans 'Pick the tags m8' %}"
+					md-items="item in getTags()"
+					md-item-text="item.name"
+					placeholder="Search for a tag">
+				<span md-highlight-text="ctrl.searchText">{{item.name}}</span>
+				</md-autocomplete>
+		  	</md-chips>
+      		<div flex-gt-xs>
+				<h4>Standard date-picker</h4>
+      			<md-datepicker ng-model="filters.from" md-placeholder="Enter date"></md-datepicker>
+  			</div>
+      		<div flex-gt-xs>
+				<h4>Standard date-picker</h4>
+				<md-datepicker ng-model="filters.to" md-placeholder="Enter date"></md-datepicker>
+			</div>
+		</form>
 	</div>
 {% endblock content %}

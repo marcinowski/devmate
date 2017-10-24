@@ -24,7 +24,6 @@
                         <md-button ng-href="{% url 'main' %}">
                             <h3>DevMate</h3>
                         </md-button>
-                        <span flex></span>
                         <md-button ng-href="{% url 'blog:main' %}">
                             <h3>{% trans 'Blog' %}</h3>
                         </md-button>
@@ -70,17 +69,23 @@
     <main flex layout="row" layout-align="space-around start">
         {% block content %}
         {% endblock content %}
+        {% block scroller %}
+            <button class="md-fab md-fab-bottom-right scroller md-button md-ink-ripple" type="button" 
+            sticky-scroller scroll-offset="200" scroll-class="scrolling" ng-click="scrollTop()" aria-label="Back to Top">
+                <md-icon md-font-icon="arrow-up"></md-icon>
+            </button>
+        {% endblock scroller %}
     </main>
     <footer flex>
         <md-toolbar flex layout="column" layout-align="center center">
             <div flex layout="row" layout="space-between center">
-                <md-button class="md-fab md-mini md-warn" aria-label="Facebook">
+                <md-button class="md-fab md-mini" aria-label="Facebook">
                     <md-icon md-font-icon="facebook-box"></md-icon>
                 </md-button>
-                <md-button class="md-fab md-mini md-warn" aria-label="LinkedIn">
+                <md-button class="md-fab md-mini" aria-label="LinkedIn">
                     <md-icon md-font-icon="linkedin-box"></md-icon>
                 </md-button>
-                <md-button class="md-fab md-mini md-warn" aria-label="GitHub">
+                <md-button class="md-fab md-mini" aria-label="GitHub">
                     <md-icon md-font-icon="github-box"></md-icon>
                 </md-button>
             </div>

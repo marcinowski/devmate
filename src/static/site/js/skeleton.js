@@ -3,9 +3,27 @@
     angular
         .module('devMateApp', ['ngMaterial', 'ngResource'])
         .config(function($mdThemingProvider, $resourceProvider, $httpProvider) {
-            $mdThemingProvider
-                .theme('default')
-                .primaryPalette('teal');
+            $mdThemingProvider.definePalette('white', {
+                '50': 'ffffff',
+                '100': 'ffffff',
+                '200': 'ffffff',
+                '300': 'ffffff',
+                '400': 'ffffff',
+                '500': 'ffffff',
+                '600': 'ffffff',
+                '700': 'ffffff',
+                '800': 'ffffff',
+                '900': 'ffffff',
+                'A100': 'ffffff',
+                'A200': 'ffffff',
+                'A400': 'ffffff',
+                'A700': 'ffffff',
+                'contrastDefaultColor': 'dark'
+            });
+            $mdThemingProvider.theme('default')
+                .primaryPalette('white')
+                .accentPalette('blue-grey')
+                .backgroundPalette('brown');
             $resourceProvider.defaults.stripTrailingSlashes = false;
             $httpProvider.defaults.xsrfCookieName = 'csrftoken';
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -50,6 +68,25 @@
                     });
                 },
                 template: '<div flex layout-fill layout="column" layout-align="center center" ng-transclude></div>',
+            }
+        })
+        .directive('stickyScroller', function($window) {
+            return {
+                restrict: 'A',
+                transclude: true,
+                scope: {
+                    scrollOffset: "@",
+                    scrollClass: "@"
+                },
+                link: function (scope, element, attrs) {
+                    angular.element($window).bind("scroll", function() {
+                        if (this.pageYOffset >= parseInt(scope.scrollOffset)) {
+                            element.addClass(scope.scrollClass);
+                        } else {
+                            element.removeClass(scope.scrollClass);
+                        }
+                    });
+                },
             }
         });
 })();

@@ -1,3 +1,30 @@
+* {
+  font-family: Lato;
+}
+
+.card {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.card-title {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    padding: 20px;
+    color: white;
+    transition: all 2s;
+    -webkit-transition: all 2s;
+    -moz-transition: all 2s;
+    -o-transition: all 2s;
+}
+
+.card-title:hover {
+    height: 190px;
+}
+
 .scroller {
   position: fixed !important;
   -webkit-transform: scale(0);
@@ -14,5 +41,12 @@
 }
 
 .scrolled-navbar {
-	background-color: black;
+  -webkit-transition: all 1000ms ease-in;
+  -webkit-transform: scale(1.1); 
+  -ms-transition: all 1000ms ease-in;
+  -ms-transform: scale(1.1); 
+  -moz-transition: all 1000ms ease-in;
+  -moz-transform: scale(1.1);
+  transition: all 1000ms ease-in;
+  transform: scale(1.1); 
 }

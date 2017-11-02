@@ -8,5 +8,5 @@ class MainPageView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['recent_articles'] = Article.objects.get_published_recently(3)
+        context['articles'] = Article.objects.get_published_recently(3)
         return context

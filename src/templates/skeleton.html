@@ -11,8 +11,7 @@
     <link href="{% static 'libs/angular-material/angular-material'|minified:'css' %}" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic"> -->
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="{% static 'site/css/site.css' %}" rel="stylesheet">
+    <link href="{% static 'site/css/main.css' %}" rel="stylesheet">
     {% block extra_css %}{% endblock extra_css %}
 </head>
 <body ng-app="devMateApp" ng-controller="{% block controller %}SkeletonCtrl{% endblock controller %}"> 
@@ -20,12 +19,12 @@
         {% block header %}
         <div layout="column" layout-fill>
             <md-content>
-                <md-toolbar md-scroll-shrink style="position: fixed; box-shadow: green 0px 2px 2px;" sticky-scroller scroll-offset="200" scroll-class="scrolled-navbar">
+                <md-toolbar md-scroll-shrink style="position: fixed; box-shadow: green 0px 2px 2px;" scroll-class scroll-offset="200" scroll-toggle-class="scrolled-navbar">
                     <div class="md-toolbar-tools">
                         <md-button ng-href="{% url 'main' %}">
                             <h3>DevMate</h3>
                         </md-button>
-                        <md-button ng-href="{% url 'blog:main' %}" md-ink-ripple="#bbbbbb">
+                        <md-button ng-href="{% url 'blog:main' %}">
                             <h3>{% trans 'Blog' %}</h3>
                         </md-button>
                         <md-button ng-href="{% url 'about' %}">
@@ -34,8 +33,8 @@
                         <md-button ng-href="{% url 'projects' %}">
                             <h3>{% trans 'Projekty' %}</h3>
                         </md-button>
-                        <md-button type="submit" class="">
-                            <md-icon md-font-set="material-icons">search</md-icon>
+                        <md-button aria-label="search-box">
+                            <md-icon md-svg-src="img/icons/search.svg"></md-icon>
                         </md-button> 
                         {% if user.is_authenticated %}
                         <md-button ng-href="{% url 'auth:logout' %}">
@@ -71,34 +70,54 @@
         {% endblock header %}
     </header>
     <main flex layout="row" layout-align="space-around start">
+        {% block media_scroller %}
+            <div class="fixed-media" scroll-class scroll-offset="200" scroll-toggle-class="scrolling">
+                <md-fab-speed-dial ng-hide="demo.hidden" md-direction="up" md-open="true" class="md-scale">
+                    <md-fab-trigger>
+                        <md-button aria-label="menu" class="md-fab">
+                            <md-tooltip md-direction="right" md-visible="tooltipVisible">{% trans 'Find me on social media' %}</md-tooltip>
+                            <md-icon md-svg-src="img/icons/menu.svg" aria-label="menu"></md-icon>
+                        </md-button>
+                    </md-fab-trigger>
+                    <md-fab-actions>
+                        <md-button class="md-fab md-mini md-button md-ink-ripple" aria-label="Facebook" >
+                            <md-tooltip md-direction="right" md-visible="tooltipVisible"
+                                md-autohide="false">Facebook
+                            </md-tooltip>
+                            <md-icon md-svg-src="img/icons/facebook.svg"></md-icon>
+                        </md-button>
+                        <md-button class="md-fab md-mini md-button md-ink-ripple" aria-label="LinkedIn">
+                            <md-tooltip md-direction="right" md-visible="tooltipVisible"
+                                md-autohide="false">LinkedIn
+                            </md-tooltip>
+                            <md-icon md-svg-src="img/icons/linkedin.svg"></md-icon>
+                        </md-button>
+                        <md-button class="md-fab md-mini md-button md-ink-ripple" aria-label="GitHub">
+                            <md-tooltip md-direction="right" md-visible="tooltipVisible"
+                                md-autohide="false">GitHub
+                            </md-tooltip>
+                            <md-icon md-svg-src="img/icons/github.svg"></md-icon>
+                        </md-button>
+                        <md-button class="md-fab md-mini md-button md-ink-ripple" aria-label="Mail">
+                            <md-tooltip md-direction="right" md-visible="tooltipVisible"
+                                md-autohide="false">Mail
+                            </md-tooltip>
+                            <md-icon md-svg-src="img/icons/mail.svg"></md-icon>
+                        </md-button>
+                    </md-fab-actions>
+                </md-fab-speed-dial>
+            </div>  
+        {% endblock media_scroller %}
         {% block content %}
         {% endblock content %}
         {% block scroller %}
-            <button class="md-fab md-fab-bottom-right scroller md-button md-ink-ripple" type="button" 
-            sticky-scroller scroll-offset="200" scroll-class="scrolling" ng-click="scrollTop()" aria-label="Back to Top">
-                <md-icon md-font-set="material-icons">expand_less</md-icon>
-            </button>
+            <div class="fixed-scroller" scroll-class scroll-offset="200" scroll-toggle-class="scrolling">
+                <sticky-scroll></sticky-scroll>
+            </div>
         {% endblock scroller %}
     </main>
     <footer flex>
         <md-toolbar flex layout="column" layout-align="center center">
-            <div flex layout="row" layout="space-between center">
-                <md-button class="md-fab md-mini" aria-label="Facebook">
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="#000000" d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M18,5H15.5A3.5,3.5 0 0,0 12,8.5V11H10V14H12V21H15V14H18V11H15V9A1,1 0 0,1 16,8H18V5Z" />
-                    </svg>
-                </md-button>
-                <md-button class="md-fab md-mini" aria-label="LinkedIn">
-                    <svg width="24" height="24">            
-                        <path fill="#000000" d="M21,21H17V14.25C17,13.19 15.81,12.31 14.75,12.31C13.69,12.31 13,13.19 13,14.25V21H9V9H13V11C13.66,9.93 15.36,9.24 16.5,9.24C19,9.24 21,11.28 21,13.75V21M7,21H3V9H7V21M5,3A2,2 0 0,1 7,5A2,2 0 0,1 5,7A2,2 0 0,1 3,5A2,2 0 0,1 5,3Z" />
-                    </svg>
-                </md-button>
-                <md-button class="md-fab md-mini" aria-label="GitHub">
-                    <svg width="24" height="24">
-                        <path fill="#000000" d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z" />
-                    </symbol>
-                </md-button>
-            </div>
             <div layout="center center">
                 <div class="md-subhead">
                     © 2017 Copyright: <a href="/"> Marcin Muszynski </a>
@@ -113,6 +132,8 @@
     <script type="text/javascript" src="{% static 'libs/angular-messages/angular-messages'|minified %}"></script>
     <script type="text/javascript" src="{% static 'libs/angular-material/angular-material'|minified %}"></script>
     <script type="text/javascript" src="{% static 'site/js/skeleton.js' %}"></script>
+    <script type="text/javascript" src="{% static 'site/js/icons.js' %}"></script>
+    {% include 'directives.html' %}
     {% block extra_js %}{% endblock extra_js %}
 </body>
 </html>

@@ -1,0 +1,24 @@
+{# templates for angular directives #}
+{% verbatim %}
+
+<script type="text/ng-template" id="directives/stickyScroll.html">
+	<!-- <div class="scroller" scroll-class scroll-offset="200" scroll-toggle-class="scrolling"> -->
+	    <button class="md-fab md-fab-bottom-right md-button md-ink-ripple" type="button" ng-click="scrollTop()" aria-label="Back to Top" ng-click="scrollTop()">
+	        <md-icon md-svg-src="img/icons/chevron-up.svg"></md-icon>
+	    </button>
+	<!-- </div> -->
+</script>
+
+<script type="text/ng-template" id="directives/articleCard.html">
+	<div layout-margin style="height: 200px; width: 800px">
+		<div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ imgUrl }});" ng-mouseenter="showDescription=true" ng-mouseleave="showDescription=false">
+			<div class="card-title">
+				<p ng-transclude="date"></p>
+				<p ng-transclude="title" style="font-size: 1.5em; padding: 0; margin: 0;"></p>
+				<p ng-transclude="brief" ng-show="showDescription">No description for this article.</p>
+			</div>
+		</div>
+	</div>
+</script>
+
+{% endverbatim %}

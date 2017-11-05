@@ -57,38 +57,52 @@
                 restrict: 'E',
                 transclude: true,
                 link: function (scope, element, attrs) {
-                    element.css({
+                    var dim = attrs.dim || '0.8';
+                    var css = {
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover',
                         backgroundImage: [
-                            'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8))',
-                            'url(' + attrs.image + ')'
+                            'linear-gradient(rgba(0,0,0,'+dim+'), rgba(0,0,0,'+dim+'))',
+                            'url(' + attrs.image + ')',
                         ],
                         backgroundAttachment: 'fixed',
                         height: '50vh',
-                    });
+                    };
+                    element.css(css);
                 },
                 template: '<div flex layout-fill layout="column" layout-align="center center" ng-transclude></div>',
             }
         })
-        .directive('stickyScroller', function($window) {
+        .directive('scrollClass', function($window) {
             return {
                 restrict: 'A',
                 transclude: true,
                 scope: {
                     scrollOffset: "@",
-                    scrollClass: "@"
+                    scrollToggleClass: "@"
                 },
                 template: '<ng-transclude></ng-transclude>',
                 link: function (scope, element, attrs) {
                     angular.element($window).bind("scroll", function() {
-                        if (this.pageYOffset >= parseInt(scope.scrollOffset)) {
-                            element.addClass(scope.scrollClass);
-                        } else {
-                            element.removeClass(scope.scrollClass);
-                        }
+                        element.toggleClass(scope.scrollToggleClass, this.pageYOffset >= parseInt(scope.scrollOffset));
                     });
+                },
+            }
+        })
+        .directive('stickyScroll', function($window) {
+            return {
+                restrict: 'E',
+                transclude: true,
+                templateUrl: 'directives/stickyScroll.html',
+                scope: true,
+                controller: function ($scope) {
+                    $scope.scrollTop = function () {
+                        console.log($window);
+                        console.log(angular.element($window));
+                        $window.scrollTo(0,0);
+                        // angular.element('html,body').animate({scrollTop: $window.top}, "slow");
+                    }
                 },
             }
         })
@@ -120,21 +134,22 @@
                 scope: {
                     imgUrl: "@",
                 },
-                template: '' +
-                    '<div layout-margin style="height: 200px; width: 800px">' +
-                    '   <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ imgUrl }});">' +
-                    '       <div class="card-title">' +
-                    '           <p ng-transclude="date"></p>' +
-                    '           <p style="font-size: 1.5em; padding: 0; margin: 0;" ng-transclude="title"></p>' +
-                    '           <p ng-transclude="brief" style="display: none">No description for this article.</p>' +
-                    '       </div>' +
-                    '   </div>' +
-                    '</div>',
-                link: function(scope, element, attrs) {
-                    element.on('mouseover', function(e) {
-                        console.log(element);
-                    });
-                },
+                templateUrl: 'directives/articleCard.html',
+                // link: function(scope, element, attrs) {
+                //     element.on('mouseenter', function(e) {
+                //         e.preventDefault();
+                //         scope.showDescription = true;
+                //         console.log(scope);
+                //     });
+                //     element.on('mouseleave', function(e) {
+                //         e.preventDefault();
+                //         scope.showDescription = false;
+                //         console.log(scope.showDescription);
+                //     });
+                // },
+                controller: function($scope) {
+                    $scope.showDescription = false;
+                }
             }
         });
 })();

@@ -50,12 +50,12 @@
                     }, error_msg);
                     return error_msg.join('\n');
                 };
+                $scope.showMediaFab = false;
             }
         ])
         .directive('imageSplash', function() {
             return {
                 restrict: 'E',
-                transclude: true,
                 link: function (scope, element, attrs) {
                     var dim = attrs.dim || '0.8';
                     var css = {
@@ -70,8 +70,9 @@
                         height: '50vh',
                     };
                     element.css(css);
+                    scope.splashTitle = attrs.splashTitle;
                 },
-                template: '<div flex layout-fill layout="column" layout-align="center center" ng-transclude></div>',
+                templateUrl: 'directives/imageSplash.html',
             }
         })
         .directive('scrollClass', function($window) {
@@ -98,28 +99,21 @@
                 scope: true,
                 controller: function ($scope) {
                     $scope.scrollTop = function () {
-                        console.log($window);
-                        console.log(angular.element($window));
                         $window.scrollTo(0,0);
-                        // angular.element('html,body').animate({scrollTop: $window.top}, "slow");
                     }
                 },
             }
         })
-        .directive('articleList', function() {
+        .directive('navSearch', function() {
             return {
                 restrict: 'E',
-                scope: {
-                    cards: "@",
-                },
-                template: '' +
-                    '<div>' + 
-                    '</div>',
+                scope: true,
+                templateUrl: 'directives/navSearch.html',
                 link: function(scope, element, attrs) {
-                    // resource call on scrolling
-                    // start spinner
-                    // render results
-                    // stop
+                    
+                },
+                controller: function($scope) {
+                    $scope.showInput = false;
                 }
             }
         })
@@ -135,18 +129,6 @@
                     imgUrl: "@",
                 },
                 templateUrl: 'directives/articleCard.html',
-                // link: function(scope, element, attrs) {
-                //     element.on('mouseenter', function(e) {
-                //         e.preventDefault();
-                //         scope.showDescription = true;
-                //         console.log(scope);
-                //     });
-                //     element.on('mouseleave', function(e) {
-                //         e.preventDefault();
-                //         scope.showDescription = false;
-                //         console.log(scope.showDescription);
-                //     });
-                // },
                 controller: function($scope) {
                     $scope.showDescription = false;
                 }

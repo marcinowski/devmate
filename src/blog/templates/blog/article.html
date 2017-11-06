@@ -1,14 +1,12 @@
 {% extends 'main.html' %}
 
 {% block landing %}
-	<image-splash image="{{ article.thumbnail.url }}">
-        <div flex layout="row" layout-align="center center">
-            <h2 class="md-display-3" style="color: white;">{{ article.title }}</h2>
-        </div>
-	</image-splash>
+	<image-splash image="{{ article.thumbnail.url }}" splash-title="{{ article.title }}"></image-splash>
 {% endblock landing %}
 {% block content %}
-	<div flex="70" flex-offset="15" layout="column">
-		<p>{{ article.content }}</p>
-	</div>
+	<md-content layout-margin>
+		<div flex layout="column" layout-align="center center">
+			<p flex="60">{{ article.content }}</p>
+		</div>
+	</md-content>
 {% endblock content %}

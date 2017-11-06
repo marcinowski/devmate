@@ -41,7 +41,7 @@ BUILTIN_APPS = [
 
 EXTERNAL_APPS = [
     'django_extensions',
-    'debug_toolbar'
+    # 'debug_toolbar'
 ]
 
 LOCAL_APPS = [
@@ -52,7 +52,7 @@ LOCAL_APPS = [
 INSTALLED_APPS = BUILTIN_APPS + EXTERNAL_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

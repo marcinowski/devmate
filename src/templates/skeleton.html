@@ -14,17 +14,14 @@
     <link href="{% static 'site/css/main.css' %}" rel="stylesheet">
     {% block extra_css %}{% endblock extra_css %}
 </head>
-<body ng-app="devMateApp" ng-controller="{% block controller %}SkeletonCtrl{% endblock controller %}"> 
+<body ng-app="devMateApp" ng-controller="{% block controller %}SkeletonCtrl{% endblock controller %}" ng-cloak> 
     <header flex="100">
         {% block header %}
         <div layout="column" layout-fill>
             <md-content>
-                <md-toolbar md-scroll-shrink style="position: fixed; box-shadow: green 0px 2px 2px;" scroll-class scroll-offset="200" scroll-toggle-class="scrolled-navbar">
+                <md-toolbar md-scroll-shrink style="position: fixed; box-shadow: green 0px 2px 2px;" scroll-class scroll-offset="200" scroll-toggle-class="scrolled-navbar" flex layout="row" layout-align="space-around center">
                     <div class="md-toolbar-tools">
                         <md-button ng-href="{% url 'main' %}">
-                            <h3>DevMate</h3>
-                        </md-button>
-                        <md-button ng-href="{% url 'blog:main' %}">
                             <h3>{% trans 'Blog' %}</h3>
                         </md-button>
                         <md-button ng-href="{% url 'about' %}">
@@ -33,9 +30,7 @@
                         <md-button ng-href="{% url 'projects' %}">
                             <h3>{% trans 'Projekty' %}</h3>
                         </md-button>
-                        <md-button aria-label="search-box">
-                            <md-icon md-svg-src="img/icons/search.svg"></md-icon>
-                        </md-button> 
+                        <nav-search></nav-search>
                         {% if user.is_authenticated %}
                         <md-button ng-href="{% url 'auth:logout' %}">
                             Log Out
@@ -72,34 +67,34 @@
     <main flex layout="row" layout-align="space-around start">
         {% block media_scroller %}
             <div class="fixed-media" scroll-class scroll-offset="200" scroll-toggle-class="scrolling">
-                <md-fab-speed-dial ng-hide="demo.hidden" md-direction="up" md-open="true" class="md-scale">
+                <md-fab-speed-dial md-direction="up" md-open="showMediaFab" class="md-scale">
                     <md-fab-trigger>
                         <md-button aria-label="menu" class="md-fab">
-                            <md-tooltip md-direction="right" md-visible="tooltipVisible">{% trans 'Find me on social media' %}</md-tooltip>
+                            <md-tooltip md-direction="down">{% trans 'Find me on social media' %}</md-tooltip>
                             <md-icon md-svg-src="img/icons/menu.svg" aria-label="menu"></md-icon>
                         </md-button>
                     </md-fab-trigger>
                     <md-fab-actions>
                         <md-button class="md-fab md-mini md-button md-ink-ripple" aria-label="Facebook" >
-                            <md-tooltip md-direction="right" md-visible="tooltipVisible"
+                            <md-tooltip md-direction="right"
                                 md-autohide="false">Facebook
                             </md-tooltip>
                             <md-icon md-svg-src="img/icons/facebook.svg"></md-icon>
                         </md-button>
                         <md-button class="md-fab md-mini md-button md-ink-ripple" aria-label="LinkedIn">
-                            <md-tooltip md-direction="right" md-visible="tooltipVisible"
+                            <md-tooltip md-direction="right"
                                 md-autohide="false">LinkedIn
                             </md-tooltip>
                             <md-icon md-svg-src="img/icons/linkedin.svg"></md-icon>
                         </md-button>
                         <md-button class="md-fab md-mini md-button md-ink-ripple" aria-label="GitHub">
-                            <md-tooltip md-direction="right" md-visible="tooltipVisible"
+                            <md-tooltip md-direction="right"
                                 md-autohide="false">GitHub
                             </md-tooltip>
                             <md-icon md-svg-src="img/icons/github.svg"></md-icon>
                         </md-button>
                         <md-button class="md-fab md-mini md-button md-ink-ripple" aria-label="Mail">
-                            <md-tooltip md-direction="right" md-visible="tooltipVisible"
+                            <md-tooltip md-direction="right"
                                 md-autohide="false">Mail
                             </md-tooltip>
                             <md-icon md-svg-src="img/icons/mail.svg"></md-icon>

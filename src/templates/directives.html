@@ -2,23 +2,39 @@
 {% verbatim %}
 
 <script type="text/ng-template" id="directives/stickyScroll.html">
-	<!-- <div class="scroller" scroll-class scroll-offset="200" scroll-toggle-class="scrolling"> -->
-	    <button class="md-fab md-button md-ink-ripple" type="button" ng-click="scrollTop()" aria-label="Back to Top" ng-click="scrollTop()">
-	        <md-icon md-svg-src="img/icons/chevron-up.svg"></md-icon>
-	    </button>
-	<!-- </div> -->
+    <button class="md-fab md-button md-ink-ripple" type="button" ng-click="scrollTop()" aria-label="Back to Top" ng-click="scrollTop()">
+        <md-icon md-svg-src="img/icons/chevron-up.svg"></md-icon>
+    </button>
 </script>
 
 <script type="text/ng-template" id="directives/articleCard.html">
 	<div layout-margin style="height: 200px; width: 800px">
 		<div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url({{ imgUrl }});" ng-mouseenter="showDescription=true" ng-mouseleave="showDescription=false">
 			<div class="card-title">
+				<p ng-transclude="brief" class="articleCardDescription" ng-show="showDescription">No description for this article.</p>
 				<p ng-transclude="date"></p>
 				<p ng-transclude="title" style="font-size: 1.5em; padding: 0; margin: 0;"></p>
-				<p ng-transclude="brief" ng-show="showDescription">No description for this article.</p>
 			</div>
 		</div>
 	</div>
+</script>
+
+<script type="text/ng-template" id="directives/imageSplash.html">
+	<div flex layout-fill layout="column" layout-align="center center">
+        <svg height="100%" width="100%" style="margin-top: 100px;">
+            <text x="50%" y="50%" font-family="Lato" fill="white" text-anchor="middle" font-size="48">{{ splashTitle }}</text>
+        </svg>
+	</div>
+</script>
+
+<script type="text/ng-template" id="directives/navSearch.html">
+    <md-button aria-label="search-box" ng-click="showInput = !showInput">
+        <md-icon md-svg-src="img/icons/search.svg"></md-icon>
+    </md-button> 
+    <md-input-container md-no-float class="md-block" ng-show="showInput">
+	    <input placeholder="Address 2">
+	    <md-icon md-svg-src="img/icons/tabs-arrow.svg" ng-click=""></md-icon>
+    </md-input-container>
 </script>
 
 {% endverbatim %}

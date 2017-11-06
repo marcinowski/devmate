@@ -1,9 +1,7 @@
 {% extends 'skeleton.html' %}
+{% load staticfiles i18n %}
 
 {% block landing %}
-    <image-splash flex image="{% static 'img/background.jpg' %}">
-        <div flex layout="row" layout-align="center center">
-            <h2 class="md-display-3" style="color: white;">{% trans 'Projekty' %}</h2>
-        </div>
+    <image-splash flex image="{% static 'img/background.jpg' %}" splash-title="{% trans 'Projekty' %}">
     </image-splash>
 {% endblock %}

@@ -120,3 +120,4 @@ ENV/
 src/static/libs/*
 *.sqlite3
 *.db
+.sass-cache

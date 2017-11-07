@@ -1,9 +1,9 @@
 * {
   font-family: Lato; }
 
-.md-toolbar-tools a {
-  margin-right: 50px;
-  margin-left: 50px; }
+.md-toolbar-tools > * {
+  margin-right: 50px !important;
+  margin-left: 50px !important; }
 
 .card {
   height: 100%;

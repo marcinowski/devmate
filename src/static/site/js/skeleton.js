@@ -57,6 +57,7 @@
             return {
                 restrict: 'E',
                 link: function (scope, element, attrs) {
+                    scope.fontColor = attrs.fontColor || 'white';
                     var dim = attrs.dim || '0.8';
                     var css = {
                         backgroundPosition: 'center',

@@ -25,10 +25,10 @@
                             <h3>{% trans 'Blog' %}</h3>
                         </md-button>
                         <md-button ng-href="{% url 'about' %}">
-                            <h3>{% trans 'O mnie' %}</h3>
+                            <h3>{% trans 'About me' %}</h3>
                         </md-button>
                         <md-button ng-href="{% url 'projects' %}">
-                            <h3>{% trans 'Projekty' %}</h3>
+                            <h3>{% trans 'Projects' %}</h3>
                         </md-button>
                         <nav-search></nav-search>
                         {% if user.is_authenticated %}
@@ -36,20 +36,17 @@
                             Log Out
                         </md-button>
                         {% endif %}
-                        <md-menu md-offset="0 50">
+                        <md-menu class="md-secondary" md-position-mode="target-right target">
                             {% get_current_language as curr_lang %}
                             <md-button aria-label="Open Language Menu" ng-click="$mdMenu.open($event)">
                                 {{ curr_lang|upper }}
                             </md-button>
-                            <md-menu-content width="2">
-                                {% get_available_languages as available_languages %}
-                                {% get_language_info_list for available_languages as langs %}
-                                {% for lang in langs %}
-                                <md-menu-item>
-                                    <md-button ng-href="/">  <!-- todo: handle lang change -->
-                                        {{ lang.code|upper }}
-                                    </md-button>
-                                </md-menu-item>
+                            <md-menu-content width="2" ng-mouseleave="$mdMenu.close()">
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for lang in languages %}
+                                <!-- <md-menu-item><md-button>{{ lang.code|upper }}</md-button></md-menu-item> -->
+                                <md-button ng-href="/{{lang.code}}/">{{ lang.code|upper }}</md-button>
                                 {% endfor %}
                             </md-menu-content>
                         </md-menu>

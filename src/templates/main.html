@@ -4,7 +4,7 @@
 {% block controller %}MainCtrl{% endblock controller %}
 
 {% block landing %}
-    <image-splash image="{% static 'img/background.jpg' %}" splash-title="DEVMATE" dim="0.0">
+    <image-splash splash-title="DEVMATE" font-color="black" dim="0.0">
     </image-splash>
 {% endblock %}
 
@@ -24,11 +24,10 @@
             {% empty %}
                 <h1>{% trans 'No articles has been added yet :(' %}</h1>
             {% endfor %}
-            <md-progress-circular md-mode="indeterminate" ng-disabled="!progressCircular"></md-progress-circular>
+            <md-progress-circular md-mode="indeterminate" class="md-warn" ng-show="progressCircular"></md-progress-circular>
             <md-button class="md-raised md-primary" ng-click="progressCircular = !progressCircular">
                 {% trans 'Show more articles' %}
             </md-button>
         </div>
     </md-content>
 {% endblock content %}
-

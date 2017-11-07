@@ -2,11 +2,10 @@
   font-family: Lato;
 }
 
-
 .md-toolbar-tools {
-    a {
-        margin-right: 50px;
-        margin-left: 50px;
+    & > * {  // catches all the children
+        margin-right: 50px !important;
+        margin-left: 50px !important;
     }
 }
 
@@ -25,7 +24,6 @@
     color: white;
     -webkit-transition:all linear 0.5s;
     transition:all linear 0.5s;
-    
 }
 
 .articleCardDescription {
@@ -51,6 +49,7 @@
         transition: transform 1s, -webkit-transform 1s;*/
     }
 }
+
 .article-title-link {
     text-decoration: none;
     color: white;

@@ -28,9 +28,10 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     url(r'^$', MainPageView.as_view(), name='main'),
-    url(r'^o-mnie/', TemplateView.as_view(template_name='about.html'), name='about'),
-    url(r'^projekty/', TemplateView.as_view(template_name='projects.html'), name='projects'),
+    url(r'^about/', TemplateView.as_view(template_name='about.html'), name='about'),
+    url(r'^projects/', TemplateView.as_view(template_name='projects.html'), name='projects'),
     url(r'^blog/', include('blog.urls', namespace='blog')),
+    prefix_default_language=True,
 )
 
 urlpatterns += static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

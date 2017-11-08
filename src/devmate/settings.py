@@ -41,7 +41,8 @@ BUILTIN_APPS = [
 
 EXTERNAL_APPS = [
     'django_extensions',
-    'debug_toolbar'
+    'debug_toolbar',
+    'rest_framework'
 ]
 
 LOCAL_APPS = [

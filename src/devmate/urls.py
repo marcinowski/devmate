@@ -19,11 +19,12 @@ from django.conf.urls import url, static, include
 from django.contrib import admin
 from django.views.generic import TemplateView
 
+from blog.api import urls as api_urls
 from .views import MainPageView
-
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^api/', include(api_urls)),
 ]
 
 urlpatterns += i18n_patterns(

@@ -24,10 +24,6 @@
             {% empty %}
                 <h1>{% trans 'No articles has been added yet :(' %}</h1>
             {% endfor %}
-            <md-progress-circular md-mode="indeterminate" class="md-warn" ng-show="progressCircular"></md-progress-circular>
-            <md-button class="md-raised md-primary" ng-click="progressCircular = !progressCircular">
-                {% trans 'Show more articles' %}
-            </md-button>
         </div>
     </md-content>
 {% endblock content %}

@@ -54,7 +54,7 @@
             }
         ])
         .directive('imageSplash', function() {
-            return {
+            var imageSplashDefinition = {
                 restrict: 'E',
                 link: function (scope, element, attrs) {
                     scope.fontColor = attrs.fontColor || 'white';
@@ -74,10 +74,11 @@
                     scope.splashTitle = attrs.splashTitle;
                 },
                 templateUrl: 'directives/imageSplash.html',
-            }
+            };
+            return imageSplashDefinition;
         })
         .directive('scrollClass', function($window) {
-            return {
+            var scrollClassDefinition = {
                 restrict: 'A',
                 transclude: true,
                 scope: {
@@ -90,10 +91,11 @@
                         element.toggleClass(scope.scrollToggleClass, this.pageYOffset >= parseInt(scope.scrollOffset));
                     });
                 },
-            }
+            };
+            return scrollClassDefinition;
         })
         .directive('stickyScroll', function($window) {
-            return {
+            var stickyScrollDefinition = {
                 restrict: 'E',
                 transclude: true,
                 templateUrl: 'directives/stickyScroll.html',
@@ -103,23 +105,25 @@
                         $window.scrollTo(0,0);
                     }
                 },
-            }
+            };
+            return stickyScrollDefinition;
         })
         .directive('navSearch', function() {
-            return {
+            var navSearchDefinition = {
                 restrict: 'E',
                 scope: true,
                 templateUrl: 'directives/navSearch.html',
                 link: function(scope, element, attrs) {
-                    
+
                 },
                 controller: function($scope) {
                     $scope.showInput = false;
                 }
-            }
+            };
+            return navSearchDefinition;
         })
         .directive('articleCard', function() {
-            return {
+            var articleCardDefinition = {
                 restrict: 'E',
                 transclude: {
                     'title': 'articleTitle',
@@ -133,6 +137,7 @@
                 controller: function($scope) {
                     $scope.showDescription = false;
                 }
-            }
+            };
+            return articleCardDefinition;
         });
 })();

@@ -1,5 +1,5 @@
 from blog import models as bm
-from rest_framework import viewsets, serializers, routers
+from rest_framework import viewsets, serializers, routers, pagination
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -15,6 +15,7 @@ class AuthorSerializer(serializers.BaseSerializer):
 class BaseArticleSerializer(serializers.ModelSerializer):
     author = serializers.CharField()
     url = serializers.CharField(source='get_absolute_url', read_only=True)
+    publish_date = serializers.DateTimeField(format="%Y %B %d")
 
     class Meta:
         model = bm.Article
@@ -23,7 +24,7 @@ class BaseArticleSerializer(serializers.ModelSerializer):
 
 class ListArticleSerializer(BaseArticleSerializer):
     class Meta(BaseArticleSerializer.Meta):
-        fields = ('author', 'publish_date', 'title', 'description', 'thumbnail', 'url', 'id')
+        fields = ('author', 'publish_date', 'title', 'description', 'thumbnail', 'url')
 
 
 
@@ -35,14 +36,23 @@ class ArticleSerializer(BaseArticleSerializer):
         fields = (
             'author', 'related_posts', 'publish_date',
             'last_updated', 'content', 'description',
-            'title', 'tags', 'thumbnail', 'url', 'id'
+            'title', 'tags', 'thumbnail', 'url'
         )
+
+
+class ArticlePagination(pagination.PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'
+    max_page_size = 10
 
 
 class ArticleAPI(viewsets.ModelViewSet):
     queryset = bm.Article.objects.all()
     serializer_class = ArticleSerializer
     permission_classes = []
+    pagination_class = ArticlePagination
+    ordering_fields = ('publish_date',)
+    ordering = ('publish_date',)
 
     def list(self, request):
         self.serializer_class = ListArticleSerializer

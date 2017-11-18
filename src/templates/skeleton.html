@@ -10,18 +10,18 @@
     <title>DevMate {% block title %}{% endblock title %}</title>
     <link href="{% static 'libs/angular-material/angular-material'|minified:'css' %}" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic"> -->
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link href="{% static 'site/css/main.css' %}" rel="stylesheet">
     {% block extra_css %}{% endblock extra_css %}
 </head>
-<body ng-app="devMateApp" ng-controller="{% block controller %}SkeletonCtrl{% endblock controller %}" ng-cloak> 
+<body ng-app="devMateApp" ng-controller="{% block controller %}SkeletonCtrl{% endblock controller %}" ng-cloak>
     <header flex="100">
         {% block header %}
         <div layout="column" layout-fill>
             <md-content>
                 <md-toolbar md-scroll-shrink style="position: fixed; box-shadow: green 0px 2px 2px;" scroll-class scroll-offset="200" scroll-toggle-class="scrolled-navbar" flex layout="row" layout-align="space-around center">
                     <div class="md-toolbar-tools">
-                        <md-button ng-href="{% url 'main' %}">
+                        <md-button ng-href="{% url 'blog:main' %}">
                             <h3>{% trans 'Blog' %}</h3>
                         </md-button>
                         <md-button ng-href="{% url 'about' %}">
@@ -52,13 +52,13 @@
                         </md-menu>
                     </div>
                 </md-toolbar>
-            </md-content>   
+            </md-content>
             {% block landing %}
             <div style="margin-top: 80px">
                 <!-- This is to ensure that the content is offset when there's no landing -->
             </div>
             {% endblock %}
-        </div>  
+        </div>
         {% endblock header %}
     </header>
     <main flex layout="row" layout-align="space-around start">
@@ -98,7 +98,7 @@
                         </md-button>
                     </md-fab-actions>
                 </md-fab-speed-dial>
-            </div>  
+            </div>
         {% endblock media_scroller %}
         {% block content %}
         {% endblock content %}

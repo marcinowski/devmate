@@ -1,12 +1,14 @@
-{% extends 'main.html' %}
+{% extends 'skeleton.html' %}
 
 {% block landing %}
 	<image-splash image="{{ article.thumbnail.url }}" splash-title="{{ article.title }}"></image-splash>
 {% endblock landing %}
 {% block content %}
-	<md-content layout-margin>
+	<md-content layout-padding>
 		<div flex layout="column" layout-align="center center">
-			<p flex="60">{{ article.content }}</p>
+			<div style="max-width: 60%">
+				{{ article.content }}
+			</div>
 		</div>
 	</md-content>
 {% endblock content %}
